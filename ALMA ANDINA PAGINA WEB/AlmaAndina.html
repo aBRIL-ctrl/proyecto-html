@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alma Andina - Hotelería & Turismo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <!-- PRINCIPAL -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <img src="img/logo.png" alt="Alma Andina">
+        <div class="logo-text"><span class="brand-name">ALMA ANDINA</span><span class="brand-sub">HOTELERÍA & TURISMO</span></div>
+      </a>
+      <nav class="nav-menu">
+        <a href="#inicio" class="active">Inicio</a><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#destinos">Destinos</a><a href="#galeria">Galería</a><a href="#contacto">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <form class="search-box">
+          <input type="text" class="search-input" placeholder="Buscar..." aria-label="Buscar">
+          <button type="submit" class="btn-search" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <a href="#reserva" class="btn-reserva">Reserva ahora</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero-slides">
+      <img src="img/AlmaAndina.jpg" alt="Slide 1" class="slide active"><img src="img/habitacion.jpg" alt="Slide 2" class="slide"><img src="img/illimani.jpg" alt="Slide 3" class="slide"><img src="img/terraza.jpg" alt="Slide 4" class="slide">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-content">
+      <p class="hero-subtitle">DESCUBRE BOLIVIA CON</p>
+      <h1 class="hero-title">ALMA ANDINA</h1>
+      <p class="hero-tags">EXPERIENCIAS • HOSPEDAJE • TURISMO</p>
+      <p class="hero-description">Conoce lugares únicos y vive experiencias inolvidables en Bolivia.</p>
+      <div class="hero-buttons">
+        <a href="#destinos" class="btn btn-primary">Explorar destinos <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#contacto" class="btn btn-outline">Contáctanos</a>
+      </div>
+    </div>
+    <div class="slider-dots">
+      <span class="dot active" onclick="cambiarSlide(0)"></span><span class="dot" onclick="cambiarSlide(1)"></span><span class="dot" onclick="cambiarSlide(2)"></span><span class="dot" onclick="cambiarSlide(3)"></span>
+    </div>
+  </section>
+
+  <!-- ¿QUIÉNES SOMOS? -->
+  <section id="nosotros" class="about-section">
+    <div class="container about-grid">
+      <div class="about-image-wrapper"><img src="img/hotel-room.jpg" alt="Habitación" class="about-img"></div>
+      <div class="about-content">
+        <div class="section-badge"><span class="line"></span><h2>¿QUIÉNES SOMOS?</h2></div>
+        <p class="about-text"><strong>ALMA ANDINA</strong> es una empresa de hotelería y turismo que nace con el propósito de ofrecer servicios de calidad, comodidad y experiencias inolvidables en los destinos más hermosos de Bolivia.</p>
+        <a href="#nosotros-mas" class="btn-more">Conocer más sobre nosotros</a>
+      </div>
+      <div class="features-card">
+        <div class="feature-item"><i class="fa-solid fa-ribbon feature-icon"></i><div class="feature-text"><h3>Compromiso</h3><p>con nuestros clientes</p></div></div>
+        <div class="feature-item"><i class="fa-solid fa-award feature-icon"></i><div class="feature-text"><h3>Calidad</h3><p>en cada servicio</p></div></div>
+        <div class="feature-item"><i class="fa-solid fa-leaf feature-icon"></i><div class="feature-text"><h3>Turismo sostenible</h3><p>para un mejor futuro</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPT -->
+  <script>
+    let slideIndex=0, slides=document.querySelectorAll('.slide'), dots=document.querySelectorAll('.dot');
+    function cambiarSlide(i){
+      slides.forEach((s, idx) => {s.classList.toggle('active', idx===i); dots[idx].classList.toggle('active', idx===i);});
+      slideIndex=i;
+    }
+    setInterval(() => cambiarSlide((slideIndex + 1) % slides.length), 5000);
+  </script>
+</body>
+</html>
+
+
+<!-- FINAL PARTE 1 -->
