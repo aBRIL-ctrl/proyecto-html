@@ -1,0 +1,2086 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALTURA ANDINA | Hotelería, turismo y experiencias en Bolivia</title>
+  <meta name="description" content="Planifica tu viaje por Bolivia con ALTURA ANDINA. Consulta hospedaje, recorridos guiados, transporte turístico y paquetes personalizados desde La Paz.">
+  <meta name="theme-color" content="#0e472c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #0e472c;
+      --primary-hover: #c09508;
+      --accent-color: #866908;
+      --text-dark: #1f2937;
+      --text-muted: #6b7280;
+      --bg-light: #f4f6f4;
+      --white: #fff;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 105px; }
+    body { font-family: var(--font-main); color: var(--text-dark); background: var(--white); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    .container, .contenedor { width: 90%; max-width: 1200px; margin: auto; }
+
+    /* NAVBAR */
+    .navbar { position: sticky; top: 0; z-index: 1000; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,.05); padding: 15px 0; }
+    .nav-container { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { width: 48px; height: 48px; object-fit: contain; }
+    .logo-text { display: flex; flex-direction: column; }
+    .brand-name { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--primary-color); line-height: 1; }
+    .brand-sub { font-size: 9px; letter-spacing: 1.5px; color: var(--accent-color); margin-top: 4px; }
+    .nav-menu { display: flex; align-items: center; gap: 22px; }
+    .nav-menu a { font-size: 14px; font-weight: 600; color: var(--text-dark); transition: .3s; white-space: nowrap; }
+    .nav-menu a:hover, .nav-menu a.active { color: var(--primary-hover); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .search-box { display: flex; align-items: center; border: 1px solid #ddd; border-radius: 30px; overflow: hidden; background: #fff; }
+    .search-input { width: 110px; padding: 8px 12px; border: none; outline: none; font-size: 13px; }
+    .btn-search { border: none; background: transparent; padding: 8px 12px; cursor: pointer; }
+    .btn-reserva { padding: 10px 18px; border-radius: 25px; background: var(--primary-color); color: #fff; font-size: 13px; font-weight: 700; transition: .3s; white-space: nowrap; }
+    .btn-reserva:hover { background: var(--primary-hover); }
+
+    /* CARRITO FLOTANTE & DRAWER */
+    .cart-icon-btn {
+      position: relative;
+      background: #f0f4ef;
+      border: 1px solid #c9d6c5;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-size: 17px;
+      transition: all 0.3s ease;
+    }
+    .cart-icon-btn:hover { background: var(--primary-color); color: #fff; }
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--primary-hover);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff;
+    }
+
+    .cart-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 9999;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .cart-drawer-overlay.open { display: block; opacity: 1; }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -560px;
+      width: 100%;
+      max-width: 560px;
+      height: 100vh;
+      background: #fff;
+      z-index: 10000;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+      transition: right 0.35s ease-in-out;
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-header {
+      padding: 18px 24px;
+      background: var(--primary-color);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cart-header h3 { font-family: var(--font-heading); font-size: 19px; display: flex; align-items: center; gap: 10px; }
+    .cart-close-btn { background: transparent; border: none; color: #fff; font-size: 28px; cursor: pointer; line-height: 1; }
+    .cart-body {
+      padding: 18px 22px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #f9faf9;
+    }
+
+    /* Acordeón del carrito */
+    .cart-section {
+      border: 1px solid #dce4da;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .cart-section-header {
+      padding: 13px 16px;
+      background: #eef3ed;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--primary-color);
+      user-select: none;
+    }
+    .cart-section-header:hover { background: #e3ece1; }
+    .cart-section-header i.chevron { transition: transform 0.3s ease; }
+    .cart-section.active .cart-section-header i.chevron { transform: rotate(180deg); }
+    .cart-section-content {
+      display: none;
+      padding: 16px;
+      background: #fff;
+      border-top: 1px solid #e0e7dd;
+    }
+    .cart-section.active .cart-section-content { display: block; }
+
+    .cart-field-group { margin-bottom: 12px; }
+    .cart-field-group:last-child { margin-bottom: 0; }
+    .cart-field-group label { display: block; font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .cart-field-group input,
+    .cart-field-group select,
+    .cart-field-group textarea {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #cfd8cc;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      background: #fff;
+    }
+    .cart-field-group input:focus,
+    .cart-field-group select:focus,
+    .cart-field-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(14,71,44,0.1);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .phone-row { display: grid; grid-template-columns: 165px 1fr; gap: 8px; }
+
+    .service-note {
+      font-size: 11.5px;
+      color: var(--primary-color);
+      background: #eef5ed;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .cart-checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 12.5px;
+    }
+    .cart-checkbox-grid label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 8px;
+      border: 1px solid #edf2ec;
+      border-radius: 8px;
+      background: #fafcfa;
+    }
+    .cart-checkbox-grid label:hover { background: #f0f5ef; }
+    .cart-checkbox-grid input[type="checkbox"] { width: auto; accent-color: var(--primary-color); }
+
+    /* Subpaneles dinámicos de pago */
+    .payment-subpanel {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #f5f8f4;
+      border: 1px dashed #b9c9b5;
+      display: none;
+    }
+    .payment-subpanel.visible { display: block; }
+    .qr-box {
+      text-align: center;
+      padding: 12px;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      margin-top: 8px;
+    }
+    .qr-box svg { width: 130px; height: 130px; margin: 0 auto 8px; }
+    .cambio-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      background: #e6f4ea;
+      color: #0e472c;
+    }
+    .cambio-badge.insuficiente { background: #fce8e6; color: #b31412; }
+
+    /* Resumen y Desglose Detallado */
+    .cart-summary-box {
+      font-size: 12.5px;
+      display: grid;
+      gap: 6px;
+      background: #f7f9f6;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #e2e8e0;
+    }
+    .cart-summary-row { display: flex; justify-content: space-between; gap: 10px; }
+    .cart-summary-row span:last-child { font-weight: 600; text-align: right; }
+    
+    .desglose-titulo {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #d5dfd3;
+      font-weight: 800;
+      color: var(--primary-color);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .desglose-lista {
+      display: grid;
+      gap: 4px;
+      padding: 6px 0;
+      font-size: 12px;
+      color: #374151;
+    }
+    .desglose-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding-left: 8px;
+      border-left: 2px solid #c5d4c2;
+    }
+    .desglose-item span:last-child {
+      font-weight: 700;
+      color: #1f2937;
+      white-space: nowrap;
+    }
+
+    .cart-summary-row.subtotal-row {
+      border-top: 1px solid #cbd5c9;
+      padding-top: 8px;
+      margin-top: 4px;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+    .cart-summary-row.total {
+      font-weight: 800;
+      font-size: 15.5px;
+      color: var(--primary-color);
+      border-top: 1px dashed #9fb19b;
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    .cart-footer {
+      padding: 16px 22px;
+      background: #f3f6f1;
+      border-top: 1px solid #dce4da;
+      display: grid;
+      gap: 8px;
+    }
+    .btn-pay-primary {
+      width: 100%;
+      padding: 13px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.25s;
+    }
+    .btn-pay-primary:hover { background: var(--primary-hover); }
+
+    /* Modal de Compra Exitosa */
+    .success-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 11000;
+      background: rgba(0,0,0,0.75);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .success-modal.open { display: flex; }
+    .success-card {
+      background: #fff;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 18px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e6f4ea;
+      color: var(--primary-color);
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .success-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .btn-wa-send { background: #25D366; color: #fff; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 13px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-mail-send { background: #0e472c; color: #fff; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 13px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+    /* HERO & SLIDER */
+    .hero { position: relative; height: 100vh; min-height: 650px; overflow: hidden; color: #fff; background-color: var(--primary-color); }
+    .hero-slides { position: absolute; inset: 0; }
+    .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; visibility: hidden; transition: opacity 1s ease, visibility 1s ease; }
+    .slide.active { opacity: 1; visibility: visible; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.65), rgba(0,0,0,.2)); z-index: 1; }
+    .hero-content { position: absolute; inset: 0; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: 90%; max-width: 1200px; margin: auto; }
+    .hero-subtitle { font-size: 16px; letter-spacing: 4px; margin-bottom: 10px; }
+    .hero-title { font-family: var(--font-heading); font-size: clamp(50px, 8vw, 90px); line-height: 1; margin-bottom: 15px; }
+    .hero-tags { font-size: 14px; letter-spacing: 3px; margin-bottom: 20px; }
+    .hero-description { max-width: 550px; font-size: 17px; margin-bottom: 30px; }
+    .hero-buttons { display: flex; gap: 15px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; border-radius: 30px; font-weight: 700; transition: .3s; }
+    .btn-primary { background: var(--primary-hover); color: #fff; }
+    .btn-primary:hover { background: var(--accent-color); }
+    .btn-outline { border: 1px solid #fff; color: #fff; }
+    .btn-outline:hover { background: #fff; color: var(--primary-color); }
+    .slider-dots { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .5); cursor: pointer; border: none; }
+    .dot.active { background: #fff; }
+
+    /* ABOUT / NOSOTROS */
+    .about-section { padding: 100px 0; background: #fff; }
+    .about-grid { display: grid; grid-template-columns: 1.1fr 1fr .8fr; align-items: center; gap: 40px; }
+    .about-image-wrapper { position: relative; width: 100%; height: 430px; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,.12); }
+    .about-media-slides { position: relative; width: 100%; height: 100%; }
+    .about-media-slides .about-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; visibility: hidden; transition: opacity .6s ease; }
+    .about-media-slides .about-slide.active { opacity: 1; visibility: visible; }
+    .about-dots { position: absolute; z-index: 5; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 8px; }
+    .about-dot { width: 10px; height: 10px; border: 0; border-radius: 50%; background: rgba(255,255,255,.65); cursor: pointer; }
+    .about-dot.active { background: var(--primary-hover); transform: scale(1.2); }
+    .section-badge { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .section-badge .line { width: 40px; height: 2px; background: var(--primary-hover); }
+    .section-badge h2 { font-size: 14px; letter-spacing: 2px; color: var(--accent-color); }
+    .about-text { font-size: 16px; color: #555; margin-bottom: 25px; line-height: 1.8; }
+    .btn-more { display: inline-block; color: var(--primary-color); font-weight: 700; border-bottom: 2px solid var(--primary-hover); padding-bottom: 5px; }
+    .features-card { padding: 30px; border-radius: 15px; background: var(--bg-light); }
+    .feature-item { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+    .feature-item:last-child { margin-bottom: 0; }
+    .feature-icon { font-size: 25px; color: var(--primary-hover); }
+    .feature-text h3 { font-size: 16px; color: var(--primary-color); }
+    .feature-text p { font-size: 13px; color: var(--text-muted); }
+
+    /* SERVICIOS Y DESTINOS */
+    .servicios-section { padding: 90px 0; background: #f8f6f1; }
+    .contenedor-elegirnos, .contenedor-servicios { width: 90%; max-width: 1200px; margin: 0 auto 80px; }
+    .contenedor-elegirnos h2, .contenedor-servicios h2, #mision-vision h2, #destinos h2, .galeria-header h2, .reserva-copy h2, .titulo-seccion h2, .datos-contacto h2 { text-align: center; font-family: var(--font-heading); font-size: 32px; color: var(--primary-color); margin-bottom: 45px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .features-grid .feature-item { display: block; text-align: center; background: #fff; padding: 35px 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,.06); }
+    .feature-icon-circle { width: 65px; height: 65px; margin: 0 auto 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #edf3ee; color: var(--primary-color); }
+    .servicios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    .servicio-card { position: relative; height: 300px; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,.1); }
+    .servicio-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .servicio-card:hover img { transform: scale(1.08); }
+    .servicio-card .overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,.8)); }
+    .servicio-contenido { position: absolute; left: 25px; right: 25px; bottom: 25px; color: #fff; z-index: 2; }
+    .servicio-contenido h3 { font-size: 20px; margin-bottom: 5px; }
+    .servicio-contenido p { font-size: 13px; }
+
+    /* MISIÓN Y VISIÓN */
+    #mision-vision { padding: 90px 8%; background: #fff; overflow: hidden; }
+    .imagen-mision { width: 100%; max-width: 1100px; margin: 0 auto 40px; overflow: hidden; border-radius: 15px; }
+    .imagen-mision img { width: 100%; height: 400px; object-fit: cover; }
+    .mision, .vision { width: 48%; float: left; padding: 30px; background: #f5f7f4; border-radius: 15px; }
+    .vision { float: right; }
+    .mision h3, .vision h3 { color: var(--primary-color); margin-bottom: 15px; font-family: var(--font-heading); }
+    .mision p, .vision p { color: #555; font-size: 15px; }
+    .limpiar { clear: both; }
+
+    /* DESTINOS */
+    #destinos { padding: 90px 8%; background: #f8f6f1; overflow: hidden; }
+    .texto-destinos { text-align: center; margin-bottom: 40px; color: #666; }
+    .destinos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: auto; }
+    .destino { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,.08); display: flex; flex-direction: column; }
+    .destino img { width: 100%; height: 200px; object-fit: cover; }
+    .destino h3 { color: var(--primary-color); padding: 16px 18px 5px; }
+    .destino p { padding: 0 18px; color: #666; font-size: 14px; flex: 1; }
+    .destino button { margin: 15px 18px 20px; padding: 9px 14px; border: 1px solid var(--primary-color); background: transparent; color: var(--primary-color); border-radius: 8px; font-weight: 700; cursor: pointer; transition: .25s; text-align: center; }
+    .destino button:hover { background: var(--primary-color); color: #fff; }
+    .boton-destinos { text-align: center; padding-top: 35px; }
+    .boton-destinos a { display: inline-block; padding: 12px 25px; background: var(--primary-color); color: #fff; border-radius: 25px; font-weight: 700; }
+
+    /* GALERÍA */
+    #galeria { background: #0e472c; color: #fff; padding: 90px 0; overflow: hidden; }
+    .galeria-header { text-align: center; margin-bottom: 40px; }
+    .galeria-header h1, .galeria-header h2 { color: #fff; font-family: var(--font-heading); font-size: 42px; margin-bottom: 10px; }
+    .galeria-header p { color: rgba(255,255,255,.8); font-size: 15px; max-width: 700px; margin: auto; }
+    .filter-menu { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+    .filter-btn { border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; padding: 9px 16px; border-radius: 25px; cursor: pointer; font-family: var(--font-main); font-size: 13px; font-weight: 600; transition: .3s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--primary-hover); border-color: var(--primary-hover); color: #fff; }
+    .galeria-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; width: 90%; max-width: 1200px; margin: auto; }
+    .galeria-card { position: relative; background: #fff; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,.18); transition: transform .3s; }
+    .galeria-card:hover { transform: translateY(-7px); }
+    .img-wrapper { position: relative; height: 210px; overflow: hidden; }
+    .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .galeria-card:hover .img-wrapper img { transform: scale(1.08); }
+    .galeria-card-info { padding: 16px; background: #fff; text-align: left; }
+    .galeria-card-info h3 { color: var(--primary-color); font-family: var(--font-heading); font-size: 19px; margin-bottom: 5px; }
+    .galeria-card-info p { color: #777; font-size: 13px; margin-bottom: 10px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 15px; background: #edf3ee; color: var(--primary-color); font-size: 11px; font-weight: 700; }
+    .footer-action { text-align: center; margin-top: 40px; }
+    .btn-ver-mas { display: inline-block; padding: 13px 28px; border: 1px solid rgba(255,255,255,.5); border-radius: 30px; color: #fff; font-size: 14px; font-weight: 700; transition: .3s; }
+    .btn-ver-mas:hover { background: #fff; color: var(--primary-color); }
+    
+    /* MODAL GALERÍA */
+    .modal { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.85); align-items: center; justify-content: center; padding: 30px; }
+    .modal-content { position: relative; width: 100%; max-width: 900px; max-height: 90vh; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+    .modal-content img { width: 100%; max-height: 60vh; object-fit: cover; }
+    .modal-info { padding: 25px; text-align: left; }
+    .modal-info h2, .modal-info h3 { color: var(--primary-color); font-family: var(--font-heading); font-size: 26px; margin-bottom: 8px; }
+    .modal-info p { color: #666; font-size: 14px; }
+    .close-btn { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(0,0,0,.65); color: #fff; font-size: 25px; line-height: 40px; text-align: center; cursor: pointer; z-index: 5; }
+
+    /* =========================================================
+       TESTIMONIOS (CORREGIDO PARA CARRUSEL DE 3 DIAPOSITIVAS)
+       ========================================================= */
+    .testimonios { padding: 100px 0; background: #f5f3ed; text-align: center; overflow: hidden; }
+    .testimonios-contenedor { width: 100%; max-width: 1200px; margin: 20px auto 0; overflow: hidden; position: relative; }
+    .testimonios-track { display: flex; transition: transform 0.4s ease-in-out; width: 300%; }
+    .testimonios-slide { width: 33.333%; flex-shrink: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0 15px; }
+    .testimonio { background: #fff; padding: 35px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,.08); text-align: left; }
+    .cliente { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+    .cliente img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-hover); }
+    .estrellas { color: #c09508; letter-spacing: 3px; font-size: 18px; margin-bottom: 15px; }
+    .puntos { display: flex; justify-content: center; gap: 8px; margin-top: 30px; }
+    .puntos span { width: 12px; height: 12px; border-radius: 50%; background: #ccc; cursor: pointer; display: inline-block; transition: 0.3s; }
+    .puntos span.activo { width: 30px; border-radius: 10px; background: var(--primary-color); }
+
+    /* CONTACTO & CTA */
+    .contacto { background: transparent; }
+    .cta { position: relative; min-height: 420px; display: flex; align-items: center; justify-content: center; text-align: center; background-size: cover; background-position: center; }
+    .cta-contenido { position: relative; z-index: 2; color: #fff; padding: 50px 20px; }
+    .cta-contenido h2 { font-family: var(--font-heading); font-size: 44px; margin-bottom: 10px; color: #fff; }
+    .btn-cta { display: inline-flex; align-items: center; gap: 12px; padding: 14px 28px; border-radius: 30px; background: var(--primary-hover); color: #fff; font-weight: 700; margin-top: 20px; text-decoration: none; }
+    .formulario-contacto { padding: 90px 0; background: #fff; }
+    .contacto-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; width: 90%; max-width: 1200px; margin: auto; align-items: start; }
+    .dato { display: flex; align-items: center; gap: 15px; margin-bottom: 22px; }
+    .enlace-contacto { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; }
+    .icono { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #edf3ee; color: var(--primary-color); font-size: 20px; flex-shrink: 0; }
+    .redes-botones { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px; }
+    .btn-social { padding: 10px 16px; border-radius: 20px; background: var(--primary-color); color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .formulario { padding: 35px; border-radius: 15px; background: #f7f7f5; box-shadow: 0 5px 25px rgba(0,0,0,.06); display: grid; gap: 15px; }
+    .formulario input, .formulario textarea { width: 100%; padding: 14px 16px; border: 1px solid #ddd; border-radius: 8px; font: inherit; background: #fff; }
+    .formulario button { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--primary-color); color: #fff; font-weight: 700; cursor: pointer; }
+
+    /* FOOTER */
+    .footer { background: #0b3020; color: #fff; padding: 55px 0 0 0; background-size: cover; background-position: center; }
+    .footer-principal { display: grid; grid-template-columns: 1fr 1.5fr; align-items: center; gap: 30px; padding-bottom: 40px; width: 90%; max-width: 1200px; margin: auto; text-align: left; }
+    .logo-footer { display: flex; align-items: center; gap: 12px; }
+    .logo-imagen img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-hover); }
+    .logo-footer h2 { font-family: var(--font-heading); font-size: 22px; color: #fff; }
+    .logo-footer p { color: #bfcac3; font-size: 12px; text-align: left; }
+    .menu-footer { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+    .menu-footer a { font-size: 13px; color: #e5e5e5; transition: .3s; text-decoration: none; }
+    .menu-footer a:hover { color: var(--primary-hover); }
+    .footer-linea { width: 90%; height: 1px; margin: 0 auto; background: rgba(255,255,255,.15); }
+    .copyright { text-align: center; padding: 20px; color: #aebbb3; font-size: 12px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .nav-menu { display: none; }
+      .about-grid, .contacto-grid, .footer-principal { grid-template-columns: 1fr; }
+      .mision, .vision { width: 100%; float: none; margin-bottom: 20px; }
+      .destinos-grid, .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid, .servicios-grid { grid-template-columns: 1fr; }
+      .testimonios-slide { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 580px) {
+      .destinos-grid, .galeria-grid, .cart-checkbox-grid, .grid-2, .grid-3, .phone-row { grid-template-columns: 1fr; }
+      .cart-drawer { max-width: 100%; right: -100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="container nav-container">
+    <a href="#inicio" class="logo">
+      <img src="img/logo.png" alt="ALTURA ANDINA">
+      <div class="logo-text">
+        <span class="brand-name">ALTURA ANDINA</span>
+        <span class="brand-sub">HOTELERÍA & TURISMO</span>
+      </div>
+    </a>
+
+    <nav class="nav-menu">
+      <a href="#inicio" class="active">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#destinos">Destinos</a>
+      <a href="#planificador">Planifica tu viaje</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="nav-actions">
+      <form class="search-box" onsubmit="event.preventDefault(); toggleCart();">
+        <input type="text" class="search-input" placeholder="Buscar..." aria-label="Buscar">
+        <button type="submit" class="btn-search" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <button type="button" class="cart-icon-btn" onclick="toggleCart()" aria-label="Abrir carrito de reservas" title="Ver carrito de reserva">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cart-count">1</span>
+      </button>
+      <button type="button" class="btn-reserva" onclick="toggleCart()" style="border:none; cursor:pointer;">Reservar</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section id="inicio" class="hero">
+  <div class="hero-slides">
+    <video class="slide active" src="video/vistaHotel.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="slide" src="video/video1.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="slide" src="video/nevada.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="slide" src="video/roc.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="slide" src="video/salar.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="slide" src="video/blanco.mp4" autoplay muted loop playsinline preload="auto"></video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle">DESCUBRE BOLIVIA CON</p>
+    <h1 class="hero-title">ALTURA ANDINA</h1>
+    <p class="hero-tags">EXPERIENCIAS • HOSPEDAJE • TURISMO</p>
+    <p class="hero-description">Conoce lugares únicos y vive experiencias inolvidables en Bolivia.</p>
+    <div class="hero-buttons">
+      <a href="#destinos" class="btn btn-primary">Explorar destinos <i class="fa-solid fa-arrow-right"></i></a>
+      <button type="button" class="btn btn-outline" onclick="toggleCart()" style="background:transparent; cursor:pointer;">Armar mi reserva <i class="fa-solid fa-cart-plus"></i></button>
+    </div>
+  </div>
+  <div class="slider-dots">
+    <button type="button" class="dot active" aria-label="Slide 1" onclick="cambiarSlide(0)"></button>
+    <button type="button" class="dot" aria-label="Slide 2" onclick="cambiarSlide(1)"></button>
+    <button type="button" class="dot" aria-label="Slide 3" onclick="cambiarSlide(2)"></button>
+    <button type="button" class="dot" aria-label="Slide 4" onclick="cambiarSlide(3)"></button>
+    <button type="button" class="dot" aria-label="Slide 5" onclick="cambiarSlide(4)"></button>
+    <button type="button" class="dot" aria-label="Slide 6" onclick="cambiarSlide(5)"></button>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" class="about-section">
+  <div class="container about-grid">
+    <div class="about-image-wrapper">
+      <div class="about-media-slides">
+        <video src="video/habitacion.mp4" class="about-slide active" autoplay muted loop playsinline preload="auto"></video>
+        <video src="video/mesa.mp4" class="about-slide" autoplay muted loop playsinline preload="auto"></video>
+        <video src="video/comida.mp4" class="about-slide" autoplay muted loop playsinline preload="auto"></video>
+      </div>
+      <div class="about-dots">
+        <button type="button" class="about-dot active" onclick="cambiarAboutSlide(0)"></button>
+        <button type="button" class="about-dot" onclick="cambiarAboutSlide(1)"></button>
+        <button type="button" class="about-dot" onclick="cambiarAboutSlide(2)"></button>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="section-badge">
+        <span class="line"></span>
+        <h2>¿QUIÉNES SOMOS?</h2>
+      </div>
+      <p class="about-text">
+        <strong>ALTURA ANDINA</strong> es una empresa de hotelería y turismo que nace con el propósito de ofrecer servicios de calidad, comodidad y experiencias inolvidables en los destinos más hermosos de Bolivia.
+      </p>
+      <a href="#mision-vision" class="btn-more">Conocer más sobre nosotros</a>
+    </div>
+
+    <div class="features-card">
+      <div class="feature-item">
+        <i class="fa-solid fa-ribbon feature-icon"></i>
+        <div class="feature-text"><h3>Compromiso</h3><p>con nuestros clientes</p></div>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-award feature-icon"></i>
+        <div class="feature-text"><h3>Calidad</h3><p>en cada servicio</p></div>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-leaf feature-icon"></i>
+        <div class="feature-text"><h3>Turismo sostenible</h3><p>para un mejor futuro</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="servicios-section">
+  <div class="contenedor-elegirnos">
+    <h2>¿POR QUÉ ELEGIRNOS?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon-circle"><i class="fa-solid fa-users"></i></div>
+        <h3>ATENCIÓN</h3><p>Atención personalizada y cercana</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-circle"><i class="fa-solid fa-bed"></i></div>
+        <h3>COMODIDAD</h3><p>Espacios cómodos y seguros</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-circle"><i class="fa-solid fa-star"></i></div>
+        <h3>EXPERIENCIA</h3><p>Experiencias turísticas inolvidables</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contenedor-servicios">
+    <h2>NUESTROS SERVICIOS</h2>
+    <div class="servicios-grid">
+      <div class="servicio-card"><img src="img/hospedaje1.jpg" alt="Hospedaje"><div class="overlay"></div><div class="servicio-contenido"><h3>HOSPEDAJE</h3><p>Habitaciones cómodas y equipadas</p></div></div>
+      <div class="servicio-card"><img src="img/turismo.jpg" alt="Tours"><div class="overlay"></div><div class="servicio-contenido"><h3>TOURS</h3><p>Recorridos turísticos guiados</p></div></div>
+      <div class="servicio-card"><img src="img/transporte.jpg" alt="Transporte"><div class="overlay"></div><div class="servicio-contenido"><h3>TRANSPORTE TURÍSTICO</h3><p>Traslados seguros y confiables</p></div></div>
+      <div class="servicio-card"><img src="img/experiencias.jpg" alt="Excursiones"><div class="overlay"></div><div class="servicio-contenido"><h3>EXCURSIONES</h3><p>Aventura y naturaleza</p></div></div>
+      <div class="servicio-card"><img src="img/gastronomia.jpg" alt="Gastronomía"><div class="overlay"></div><div class="servicio-contenido"><h3>GASTRONOMÍA</h3><p>Gastronomía local</p></div></div>
+      <div class="servicio-card"><img src="img/expe.jpg" alt="Experiencias"><div class="overlay"></div><div class="servicio-contenido"><h3>EXPERIENCIAS TURÍSTICAS</h3><p>Actividades culturales</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main>
+  <section id="mision-vision">
+    <h2>MISIÓN Y VISIÓN</h2>
+    <div class="imagen-mision"><img src="img/dia-del-turismo.jpg" alt="Bolivia"></div>
+    <div class="mision">
+      <h3>MISIÓN</h3>
+      <p>Nuestra misión como agencia de turismo y hotelería es brindar una experiencia auténtica e innovadora con respeto por las costumbres socioculturales.</p>
+    </div>
+    <div class="vision">
+      <h3>VISIÓN</h3>
+      <p>Destacarnos como empresa líder e innovadora en el sector del turismo y la hotelería a nivel nacional e internacional.</p>
+    </div>
+    <div class="limpiar"></div>
+  </section>
+
+<style>
+  /* ESTILOS PARA LA SECCIÓN DE DESTINOS */
+  #destinos {
+    padding: 80px 5%;
+    background: #fcfbf9;
+    text-align: center;
+    font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  }
+
+  .destinos-titulo {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 32px;
+    color: #0e472c;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .texto-destinos {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .destinos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+  }
+
+  .destino-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: transform 0.3s ease;
+  }
+
+  .destino-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .destino-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+  }
+
+  .destino-info {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .destino-info h3 {
+    font-size: 17px;
+    color: #1f2937;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .destino-info p {
+    color: #6b7280;
+    font-size: 13.5px;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+
+  .ver-mas-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: #c09508;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .ver-mas-link:hover {
+    text-decoration: underline;
+  }
+
+  .boton-destinos {
+    text-align: center;
+  }
+
+  .boton-destinos a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #0e472c;
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .boton-destinos a:hover {
+    background: #c09508;
+  }
+
+  /* RESPONSIVO */
+  @media (max-width: 960px) {
+    .destinos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 580px) {
+    .destinos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<!-- SECCIÓN NUESTROS DESTINOS -->
+<section id="destinos">
+  <h2 class="destinos-titulo">NUESTROS DESTINOS</h2>
+  <p class="texto-destinos">Descubre lugares hermosos de nuestra querida Bolivia.</p>
+  
+  <div class="destinos-grid">
+    <!-- Tarjeta 1: La Paz -->
+    <div class="destino-card">
+      <img src="img/La-Paz_blog.png" alt="La Paz">
+      <div class="destino-info">
+        <h3>La Paz</h3>
+        <p>Altiplano boliviano.</p>
+        <a href="#contacto" class="ver-mas-link">Ver más</a>
+      </div>
+    </div>
+
+    <!-- Tarjeta 2: Salar de Uyuni -->
+    <div class="destino-card">
+      <img src="img/salar-de-uyuni-bolivia.jpg" alt="Salar de Uyuni">
+      <div class="destino-info">
+        <h3>Salar de Uyuni</h3>
+        <p>Maravilla natural</p>
+        <a href="#contacto" class="ver-mas-link">Ver más</a>
+      </div>
+    </div>
+
+    <!-- Tarjeta 3: Copacabana -->
+    <div class="destino-card">
+      <img src="img/Copacabana_blog_1.png" alt="Copacabana">
+      <div class="destino-info">
+        <h3>Copacabana</h3>
+        <p>Lago Titicaca</p>
+        <a href="#contacto" class="ver-mas-link">Ver más</a>
+      </div>
+    </div>
+
+    <!-- Tarjeta 4: Sucre -->
+    <div class="destino-card">
+      <img src="img/sucre.jpg" alt="Sucre">
+      <div class="destino-info">
+        <h3>Sucre</h3>
+        <p>Patrimonio cultural</p>
+        <a href="#contacto" class="ver-mas-link">Ver más</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="boton-destinos">
+    <a href="#galeria">Ver todos los destinos</a>
+  </div>
+</section>
+
+  <!-- GALERÍA EXPLORA BOLIVIA -->
+  <section id="galeria" class="galeria-seccion">
+    <div class="galeria-contenedor container">
+      <header class="galeria-header">
+        <h2>GALERÍA EXPLORA BOLIVIA</h2>
+        <p>Atractivos, paisajes y tradiciones de los 9 departamentos</p>
+      </header>
+
+      <div class="filter-menu">
+        <button class="filter-btn active" onclick="filtrar('todos',this)">Todos (36)</button>
+        <button class="filter-btn" onclick="filtrar('lapaz',this)">La Paz</button>
+        <button class="filter-btn" onclick="filtrar('santacruz',this)">Santa Cruz</button>
+        <button class="filter-btn" onclick="filtrar('cochabamba',this)">Cochabamba</button>
+        <button class="filter-btn" onclick="filtrar('potosi',this)">Potosí</button>
+        <button class="filter-btn" onclick="filtrar('oruro',this)">Oruro</button>
+        <button class="filter-btn" onclick="filtrar('chuquisaca',this)">Chuquisaca</button>
+        <button class="filter-btn" onclick="filtrar('tarija',this)">Tarija</button>
+        <button class="filter-btn" onclick="filtrar('beni',this)">Beni</button>
+        <button class="filter-btn" onclick="filtrar('pando',this)">Pando</button>
+      </div>
+
+      <div class="galeria-grid">
+        <div class="galeria-card" data-category="lapaz" onclick="abrirModal('https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1000&q=80','Mi Teleférico & Vista Urbana','La Paz cuenta con la red de transporte por cable más alta del mundo.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=300&q=80" alt="Mi Teleférico"></div>
+          <div class="galeria-card-info"><h3>Mi Teleférico</h3><p>Red de transporte aéreo urbano...</p><span class="badge">La Paz</span></div>
+        </div>
+        <div class="galeria-card" data-category="lapaz" onclick="abrirModal('https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1000&q=80','Santuario de Copacabana y Titicaca','Ubicado a orillas del lago sagrado.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=300&q=80" alt="Lago Titicaca"></div>
+          <div class="galeria-card-info"><h3>Copacabana & Titicaca</h3><p>Santuario místico a orillas...</p><span class="badge">La Paz</span></div>
+        </div>
+        <div class="galeria-card" data-category="lapaz" onclick="abrirModal('https://images.unsplash.com/photo-1544198365-f5d60b6d8190?w=1000&q=80','Camino a los Yungas y Coroico','Descenso impresionante desde cumbres.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?w=300&q=80" alt="Yungas"></div>
+          <div class="galeria-card-info"><h3>Valle de los Yungas</h3><p>Transición geográfica hacia Coroico.</p><span class="badge">La Paz</span></div>
+        </div>
+        <div class="galeria-card" data-category="lapaz" onclick="abrirModal('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1000&q=80','Valle de la Luna','Formaciones de arcilla erosionadas.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&q=80" alt="Valle de la Luna"></div>
+          <div class="galeria-card-info"><h3>Valle de la Luna</h3><p>Laberinto natural de arcilla.</p><span class="badge">La Paz</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="santacruz" onclick="abrirModal('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&q=80','Misiones Jesuíticas de Chiquitos','Pueblos coloniales.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=300&q=80" alt="Misiones Jesuíticas"></div>
+          <div class="galeria-card-info"><h3>Misiones de Chiquitos</h3><p>Patrimonio barroco.</p><span class="badge">Santa Cruz</span></div>
+        </div>
+        <div class="galeria-card" data-category="santacruz" onclick="abrirModal('https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1000&q=80','Parque Nacional Noel Kempff Mercado','Reserva amazónica.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=300&q=80" alt="Noel Kempff"></div>
+          <div class="galeria-card-info"><h3>Noel Kempff Mercado</h3><p>Santuario natural amazónico.</p><span class="badge">Santa Cruz</span></div>
+        </div>
+        <div class="galeria-card" data-category="santacruz" onclick="abrirModal('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1000&q=80','Lomas de Arena de El Palmar','Dunas doradas.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=300&q=80" alt="Lomas de Arena"></div>
+          <div class="galeria-card-info"><h3>Lomas de Arena</h3><p>Dunas y vegetación tropical.</p><span class="badge">Santa Cruz</span></div>
+        </div>
+        <div class="galeria-card" data-category="santacruz" onclick="abrirModal('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1000&q=80','Samaipata & El Fuerte','Sitio arqueológico.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80" alt="Samaipata"></div>
+          <div class="galeria-card-info"><h3>Samaipata & El Fuerte</h3><p>Pueblo y sitio milenario.</p><span class="badge">Santa Cruz</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="cochabamba" onclick="abrirModal('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1000&q=80','Parque Nacional Torotoro','Cañones y dinosaurios.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=300&q=80" alt="Torotoro"></div>
+          <div class="galeria-card-info"><h3>Parque Torotoro</h3><p>Paraíso paleontológico.</p><span class="badge">Cochabamba</span></div>
+        </div>
+        <div class="galeria-card" data-category="cochabamba" onclick="abrirModal('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1000&q=80','Gastronomía Valluna','Pique Macho y Silpancho.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=80" alt="Gastronomía"></div>
+          <div class="galeria-card-info"><h3>Gastronomía del Valle</h3><p>Cultura culinaria tradicional.</p><span class="badge">Cochabamba</span></div>
+        </div>
+        <div class="galeria-card" data-category="cochabamba" onclick="abrirModal('https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1000&q=80','Cristo de la Concordia','Monumento gigante.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=300&q=80" alt="Cristo"></div>
+          <div class="galeria-card-info"><h3>Cristo de la Concordia</h3><p>Mirador principal.</p><span class="badge">Cochabamba</span></div>
+        </div>
+        <div class="galeria-card" data-category="cochabamba" onclick="abrirModal('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1000&q=80','Trópico de Cochabamba','Selva tropical.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=300&q=80" alt="Chapare"></div>
+          <div class="galeria-card-info"><h3>El Chapare & Trópico</h3><p>Ríos y parques naturales.</p><span class="badge">Cochabamba</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="potosi" onclick="abrirModal('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1000&q=80','Salar de Uyuni','Espejo natural.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&q=80" alt="Uyuni"></div>
+          <div class="galeria-card-info"><h3>Salar de Uyuni</h3><p>Desierto de sal.</p><span class="badge">Potosí</span></div>
+        </div>
+        <div class="galeria-card" data-category="potosi" onclick="abrirModal('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1000&q=80','Lagunas de Colores','Reserva Eduardo Avaroa.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80" alt="Laguna Colorada"></div>
+          <div class="galeria-card-info"><h3>Laguna Colorada</h3><p>Flamencos andinos.</p><span class="badge">Potosí</span></div>
+        </div>
+        <div class="galeria-card" data-category="potosi" onclick="abrirModal('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1000&q=80','Cerro Rico','Ciudad histórica.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&q=80" alt="Cerro Rico"></div>
+          <div class="galeria-card-info"><h3>Cerro Rico & Potosí</h3><p>Minería de plata.</p><span class="badge">Potosí</span></div>
+        </div>
+        <div class="galeria-card" data-category="potosi" onclick="abrirModal('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1000&q=80','Sol de Mañana','Géiseres.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&q=80" alt="Géiseres"></div>
+          <div class="galeria-card-info"><h3>Géiseres Sol de Mañana</h3><p>Campo geotérmico.</p><span class="badge">Potosí</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="oruro" onclick="abrirModal('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=1000&q=80','Carnaval de Oruro','Obra Maestra.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=300&q=80" alt="Carnaval"></div>
+          <div class="galeria-card-info"><h3>Carnaval de Oruro</h3><p>Festividad folclórica.</p><span class="badge">Oruro</span></div>
+        </div>
+        <div class="galeria-card" data-category="oruro" onclick="abrirModal('https://images.unsplash.com/photo-1535083783855-76ae62b2914e?w=1000&q=80','Parque Nacional Sajama','Nevado y termas.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1535083783855-76ae62b2914e?w=300&q=80" alt="Sajama"></div>
+          <div class="galeria-card-info"><h3>Nevado Sajama</h3><p>Volcán y alpacas.</p><span class="badge">Oruro</span></div>
+        </div>
+        <div class="galeria-card" data-category="oruro" onclick="abrirModal('https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1000&q=80','Virgen del Socavón','Templo religioso.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=300&q=80" alt="Socavón"></div>
+          <div class="galeria-card-info"><h3>Virgen del Socavón</h3><p>Centro de fe y cultura.</p><span class="badge">Oruro</span></div>
+        </div>
+        <div class="galeria-card" data-category="oruro" onclick="abrirModal('https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1000&q=80','Lago Uru Uru','Aguas termales.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=300&q=80" alt="Uru Uru"></div>
+          <div class="galeria-card-info"><h3>Lago Uru Uru & Obrajes</h3><p>Extensión lacustre.</p><span class="badge">Oruro</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="chuquisaca" onclick="abrirModal('https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1000&q=80','Sucre Ciudad Blanca','Capital constitucional.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=300&q=80" alt="Sucre"></div>
+          <div class="galeria-card-info"><h3>Sucre Histórico</h3><p>Patrimonio UNESCO.</p><span class="badge">Chuquisaca</span></div>
+        </div>
+        <div class="galeria-card" data-category="chuquisaca" onclick="abrirModal('https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&q=80','Tarabuco','Mercado tradicional.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=300&q=80" alt="Tarabuco"></div>
+          <div class="galeria-card-info"><h3>Tarabuco & Jalq'a</h3><p>Enclave cultural.</p><span class="badge">Chuquisaca</span></div>
+        </div>
+        <div class="galeria-card" data-category="chuquisaca" onclick="abrirModal('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1000&q=80','Cal Orck\'o','Huellas de dinosaurios.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=300&q=80" alt="Cal Orck'o"></div>
+          <div class="galeria-card-info"><h3>Cal Orck'o</h3><p>Yacimiento paleontológico.</p><span class="badge">Chuquisaca</span></div>
+        </div>
+        <div class="galeria-card" data-category="chuquisaca" onclick="abrirModal('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=1000&q=80','Cráter de Maragua','Paisajes multicolor.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80" alt="Maragua"></div>
+          <div class="galeria-card-info"><h3>Cráter de Maragua</h3><p>Formación rocosa.</p><span class="badge">Chuquisaca</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="tarija" onclick="abrirModal('https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=1000&q=80','Ruta del Vino','Viñedos y singanis.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=300&q=80" alt="Vino Tarija"></div>
+          <div class="galeria-card-info"><h3>Ruta del Vino & Singani</h3><p>Bodegas tarijeñas.</p><span class="badge">Tarija</span></div>
+        </div>
+        <div class="galeria-card" data-category="tarija" onclick="abrirModal('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1000&q=80','San Roque','Festividad tradicional.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&q=80" alt="San Roque"></div>
+          <div class="galeria-card-info"><h3>San Roque & Chunchos</h3><p>Festividad chapaca.</p><span class="badge">Tarija</span></div>
+        </div>
+        <div class="galeria-card" data-category="tarija" onclick="abrirModal('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1000&q=80','Cordillera de Sama','Lagunas altiplánicas.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&q=80" alt="Sama"></div>
+          <div class="galeria-card-info"><h3>Cordillera de Sama</h3><p>Reserva natural.</p><span class="badge">Tarija</span></div>
+        </div>
+        <div class="galeria-card" data-category="tarija" onclick="abrirModal('https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1000&q=80','Valle de la Concepción','Corazón vinícola.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=300&q=80" alt="Concepción"></div>
+          <div class="galeria-card-info"><h3>Valle de la Concepción</h3><p>Producción vitivinícola.</p><span class="badge">Tarija</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="beni" onclick="abrirModal('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1000&q=80','Pampas del Yacuma','Safaris y fauna.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=300&q=80" alt="Yacuma"></div>
+          <div class="galeria-card-info"><h3>Pampas del Yacuma</h3><p>Santuario silvestre.</p><span class="badge">Beni</span></div>
+        </div>
+        <div class="galeria-card" data-category="beni" onclick="abrirModal('https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=1000&q=80','Llanos de Moxos','Herencia cultural.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=300&q=80" alt="Moxos"></div>
+          <div class="galeria-card-info"><h3>Llanos de Moxos</h3><p>Identidad y tradiciones.</p><span class="badge">Beni</span></div>
+        </div>
+        <div class="galeria-card" data-category="beni" onclick="abrirModal('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1000&q=80','Reserva TIPNIS','Selva tropical.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=300&q=80" alt="TIPNIS"></div>
+          <div class="galeria-card-info"><h3>Reserva Natural TIPNIS</h3><p>Territorio protegido.</p><span class="badge">Beni</span></div>
+        </div>
+        <div class="galeria-card" data-category="beni" onclick="abrirModal('https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1000&q=80','Río Mamoré','Expediciones fluviales.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=300&q=80" alt="Mamoré"></div>
+          <div class="galeria-card-info"><h3>Navegación Río Mamoré</h3><p>Ríos amazónicos.</p><span class="badge">Beni</span></div>
+        </div>
+
+        <div class="galeria-card" data-category="pando" onclick="abrirModal('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1000&q=80','Reserva Manuripi','Castañales.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=300&q=80" alt="Manuripi"></div>
+          <div class="galeria-card-info"><h3>Reserva Manuripi</h3><p>Selva húmeda.</p><span class="badge">Pando</span></div>
+        </div>
+        <div class="galeria-card" data-category="pando" onclick="abrirModal('https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=1000&q=80','Cobija','Capital de Pando.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=300&q=80" alt="Cobija"></div>
+          <div class="galeria-card-info"><h3>Cobija Perla del Acre</h3><p>Ambiente amazónico.</p><span class="badge">Pando</span></div>
+        </div>
+        <div class="galeria-card" data-category="pando" onclick="abrirModal('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1000&q=80','Ruta de la Castaña','Industria recolectora.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=300&q=80" alt="Castaña"></div>
+          <div class="galeria-card-info"><h3>Ruta de la Castaña</h3><p>Tradición en la selva.</p><span class="badge">Pando</span></div>
+        </div>
+        <div class="galeria-card" data-category="pando" onclick="abrirModal('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1000&q=80','Lago Bay','Espejo de agua.')">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=300&q=80" alt="Lago Bay"></div>
+          <div class="galeria-card-info"><h3>Lago Bay</h3><p>Bosque lluvioso.</p><span class="badge">Pando</span></div>
+        </div>
+      </div>
+
+      <div class="footer-action">
+        <a href="#" class="btn-ver-mas">Ver todos los departamentos</a>
+      </div>
+    </div>
+
+    <div class="modal" id="modalView" onclick="cerrarModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-btn" onclick="cerrarModal()">&times;</span>
+        <img id="modalImg" src="" alt="Ampliada">
+        <div class="modal-info"><h2 id="modalTitulo"></h2><p id="modalTexto"></p></div>
+      </div>
+    </div>
+  </section>
+
+<style>
+  /* ESTILOS PARA PLANIFICADOR Y RESERVA */
+  .planificador-section, .reserva-section {
+    padding: 80px 0;
+    background: #fcfbf9;
+  }
+  .planificador-heading, .reserva-copy {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+  }
+  .section-kicker, .foda-eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .planificador-heading h2, .reserva-copy h2 {
+    font-family: var(--font-heading);
+    font-size: 34px;
+    color: var(--primary-color);
+  }
+  
+  .planificador-grid, .reserva-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  }
+
+  .planificador-form, .reserva-form {
+    display: grid;
+    gap: 15px;
+  }
+  .planificador-form label, .reserva-form h3 {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 15px;
+  }
+  .planificador-form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #fafafa;
+  }
+  .btn-planner, .btn-reserva-enviar {
+    padding: 13px 20px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.3s;
+  }
+  .btn-planner:hover, .btn-reserva-enviar:hover {
+    background: var(--primary-hover);
+  }
+
+  .plan-benefit {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    background: #f4f7f4;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .plan-benefit span {
+    font-size: 24px;
+    color: var(--primary-color);
+  }
+  .plan-benefit h3 {
+    font-size: 16px;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+  }
+  .plan-benefit p {
+    font-size: 13.5px;
+    color: #666;
+  }
+
+  .reserva-beneficios {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    text-align: left;
+    margin-top: 20px;
+  }
+  .reserva-beneficios li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14.5px;
+    color: #444;
+  }
+  .reserva-beneficios i {
+    color: var(--primary-hover);
+  }
+
+  @media (max-width: 850px) {
+    .planificador-grid, .reserva-grid {
+      grid-template-columns: 1fr;
+      padding: 20px;
+    }
+  }
+</style>
+
+<!-- PLANIFICADOR -->
+<section id="planificador" class="planificador-section">
+  <div class="container">
+    <div class="planificador-heading">
+      <span class="section-kicker">TU VIAJE, A TU MANERA</span>
+      <h2>Diseña una experiencia a tu medida</h2>
+    </div>
+    <div class="planificador-grid">
+      <form id="planificador-form" class="planificador-form" onsubmit="event.preventDefault(); toggleCart();">
+        <label for="planner-interes">¿Qué tipo de experiencia buscas?</label>
+        <select id="planner-interes" required>
+          <option value="">Selecciona</option>
+          <option>Naturaleza y aventura</option>
+          <option>Cultura e historia</option>
+          <option>Turismo familiar y mascotas</option>
+          <option>Gastronomía y relax</option>
+        </select>
+        <button class="btn-planner" type="submit"><i class="fa-solid fa-cart-shopping"></i> Personalizar en el Carrito</button>
+      </form>
+      <div class="planificador-lado">
+        <article class="plan-benefit">
+          <span><i class="fa-solid fa-route"></i></span>
+          <div>
+            <h3>Itinerarios flexibles</h3>
+            <p>Alternativas adaptadas a cada grupo familiar, fechas y mascotas.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVA -->
+<section id="reserva" class="reserva-section">
+  <div class="container reserva-grid">
+    <div class="reserva-copy">
+      <span class="foda-eyebrow">TU PRÓXIMA EXPERIENCIA</span>
+      <h2>Reserva tu experiencia en Bolivia</h2>
+      <ul class="reserva-beneficios">
+        <li><i class="fa-solid fa-check"></i> Paquetes adaptados a tus preferencias y mascotas</li>
+        <li><i class="fa-solid fa-check"></i> Opción de pago total o anticipo del 50%</li>
+        <li><i class="fa-solid fa-check"></i> Confirmación inmediata por WhatsApp y Correo</li>
+      </ul>
+    </div>
+    <form class="reserva-form" id="reserva-form" onsubmit="event.preventDefault(); toggleCart();">
+      <h3>Acceso rápido a reserva</h3>
+      <p style="font-size:14px; color:#555;">Abre nuestro carrito inteligente para detallar viajeros, habitaciones, servicios adicionales y método de pago.</p>
+      <button class="btn-reserva-enviar" type="submit"><i class="fa-solid fa-cart-shopping"></i> Abrir Carrito de Reservas</button>
+    </form>
+  </div>
+</section>
+
+<!-- =========================================================
+     LO QUE DICEN NUESTROS CLIENTES (CARRUSEL DE 3 DIAPOSITIVAS)
+     ========================================================= -->
+<section class="testimonios">
+  <div class="contenedor">
+    <div class="titulo-seccion">
+      <h2>LO QUE DICEN NUESTROS CLIENTES</h2>
+      <p>Experiencias de quienes viajaron con Altura Andina</p>
+    </div>
+
+    <!-- CONTENEDOR DESLIZABLE -->
+    <div class="testimonios-contenedor">
+      <div class="testimonios-track" id="testimoniosTrack">
+        <!-- Diapositiva 1 (Testimonios 1 y 2) -->
+        <div class="testimonios-slide">
+          <article class="testimonio">
+            <div class="cliente">
+              <img src="img/cliente1.png.jpg" alt="Ana Rodríguez">
+              <div><h3>Ana Rodríguez</h3><span>Cliente</span></div>
+            </div>
+            <div class="estrellas">★★★★★</div>
+            <p>“Excelente atención, habitaciones cómodas y una experiencia inolvidable. Definitivamente volvería.”</p>
+          </article>
+
+          <article class="testimonio">
+            <div class="cliente">
+              <img src="img/cliente2.png.jpg" alt="Carlos Mendoza">
+              <div><h3>Carlos Mendoza</h3><span>Cliente</span></div>
+            </div>
+            <div class="estrellas">★★★★★</div>
+            <p>“Los tours fueron increíbles, la organización fue perfecta y el personal muy amable. Recomendado.”</p>
+          </article>
+        </div>
+
+        <!-- Diapositiva 2 (Testimonios 3 y 4) -->
+        <div class="testimonios-slide">
+          <article class="testimonio">
+            <div class="cliente">
+              <img src="img/cliente4.jpg" alt="María Gómez">
+              <div><h3>María Gómez</h3><span>Cliente</span></div>
+            </div>
+            <div class="estrellas">★★★★★</div>
+            <p>“Una experiencia maravillosa en el Salar de Uyuni. La guía fue muy atenta en todo momento.”</p>
+          </article>
+
+          <article class="testimonio">
+            <div class="cliente">
+              <img src="img/cliente3.jpg" alt="Juan Pérez">
+              <div><h3>Juan Pérez</h3><span>Cliente</span></div>
+            </div>
+            <div class="estrellas">★★★★★</div>
+            <p>“Superó todas mis expectativas. El servicio de transporte y hospedaje de primera calidad.”</p>
+          </article>
+        </div>
+
+        <!-- Diapositiva 3 (Testimonios 5 y 6) -->
+        <div class="testimonios-slide">
+          <article class="testimonio">
+            <div class="cliente">
+              <img src="img/cliente5.jpg" alt="Sofía Castro">
+              <div><h3>Sofía Castro</h3><span>Cliente</span></div>
+            </div>
+            <div class="estrellas">★★★★★</div>
+            <p>“Los paisajes de la Cordillera Real son increíbles. Altura Andina organizó todo a la perfección.”</p>
+          </article>
+
+          <article class="testimonio">
+            <div class="cliente">
+              <img src="img/cliente6.jpg" alt="Diego Morales">
+              <div><h3>Diego Morales</h3><span>Cliente</span></div>
+            </div>
+            <div class="estrellas">★★★★★</div>
+            <p>“Muy puntuales y profesionales. La mejor agencia para conocer Bolivia de manera segura.”</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUNTOS INTERACTIVOS (3 PUNTOS PARA 3 DIAPOSITIVAS) -->
+    <div class="puntos" id="puntosContenedor">
+      <span class="activo" data-index="0"></span>
+      <span data-index="1"></span>
+      <span data-index="2"></span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO, CTA Y FOOTER -->
+<section id="contacto" class="contacto">
+  <div class="cta" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/Gemini_Generated_Image_hpa1e0hpa1e0hpa1.jpg');">
+    <div class="cta-contenido">
+      <h2>¿LISTO PARA VIAJAR?</h2>
+      <p>Descubre Bolivia con ALTURA ANDINA</p>
+      <p style="font-size: 15px; margin-bottom: 20px; opacity: 0.9; color: #ffffff;">
+        Diseñamos experiencias únicas adaptadas a tu tiempo y presupuesto. ¡Empieza tu aventura hoy!
+      </p>
+      <a href="https://wa.me/59157070232?text=Estimados%20de%20Altura%20Andina,%20un%20cordial%20saludo.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener noreferrer" class="btn-cta">
+        Planear mi viaje <span>➜</span>
+      </a>
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px; font-size: 14px; color: #ffffff;">
+        <span>✔ Atención personalizada</span>
+        <span>✔ Guías profesionales</span>
+        <span>✔ Reservas seguras</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="formulario-contacto">
+    <div class="container contacto-grid">
+      <div class="datos-contacto">
+        <h2>CONTÁCTANOS</h2>
+        
+         <div class="dato">
+                        <a href="https://wa.me/59157070232?text=Estimados%20de%20Altura%20Andina,%20un%20cordial%20saludo.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20paquetes%20tur%C3%ADsticos%20y%20servicios." target="_blank" rel="noopener noreferrer" class="enlace-contacto">
+                            <span class="icono">☎</span>
+                            <div>
+                                <strong>WhatsApp</strong>
+                                <p>+591 57070232</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dato">
+                        <a href="https://wa.me/59157070232?text=Estimados%20de%20Altura%20Andina,%20un%20cordial%20saludo.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20paquetes%20tur%C3%ADsticos%20y%20servicios." target="_blank" rel="noopener noreferrer" class="enlace-contacto">
+                            <span class="icono">☎</span>
+                            <div>
+                                <strong>fijo</strong>
+                                <p>+591 22345678</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dato">
+                        <a href="mailto:almaandina.ht@gmail.com" class="enlace-contacto">
+                            <span class="icono">✉</span>
+                            <div>
+                                <strong>Correo</strong>
+                                <p>almaandina.ht@gmail.com</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- UBICACIÓN CON MAPA INTERACTIVO -->
+                    <div class="dato ubicacion-mapa-container">
+                        <span class="icono">⌖</span>
+                        <div style="width: 100%;">
+                            <strong>Ubicación</strong>
+                            <p>La Paz, Bolivia</p>
+                            <a href="https://maps.app.goo.gl/dp1Gx32qnbczhikH6" target="_blank" rel="noopener noreferrer" class="mapa-miniatura" aria-label="Ver ubicación en Google Maps">
+                                <div class="mapa-overlay">
+                                    <span>Ver en Google Maps 📍</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+        <div class="redes-botones">
+          <a href="https://wa.me/59157070232" target="_blank" class="btn-social">WhatsApp</a>
+          <a href="https://www.instagram.com/almandinaht" target="_blank" class="btn-social">Instagram</a>
+          <a href="https://www.tiktok.com/@almaandinaht" target="_blank" class="btn-social">TikTok</a>
+          <a href="mailto:almaandina.ht@gmail.com" class="btn-social">Correo</a>
+          <a href="https://www.facebook.com" target="_blank" class="btn-social">Facebook</a>
+        </div>
+      </div>
+
+      <form class="formulario" id="form-contacto" onsubmit="event.preventDefault(); alert('Mensaje enviado. ¡Gracias por contactar a ALTURA ANDINA!');">
+        <input type="text" placeholder="Nombre completo" required>
+        <input type="email" placeholder="Correo electrónico" required>
+        <input type="text" placeholder="Asunto">
+        <textarea placeholder="Escribe tu mensaje..." rows="5" required></textarea>
+        <button type="submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('img/Gemini_Generated_Image_676acj676acj676a.jpg');">
+  <div class="container footer-principal">
+    <div class="logo-footer">
+      <div class="logo-imagen"><img src="img/logo alma.jpeg" alt="Logo"></div>
+      <div><h2>ALTURA ANDINA</h2><p>Hotelería y Turismo</p></div>
+    </div>
+    <nav class="menu-footer">
+      <a href="#inicio">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#destinos">Destinos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+  <div class="footer-linea"></div>
+  <div class="copyright">© 2026 ALTURA ANDINA. Todos los derechos reservados.</div>
+</footer>
+
+<!-- CARRITO DE COMPRAS (DRAWER) -->
+<div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3><i class="fa-solid fa-suitcase-rolling"></i> Carrito de Reserva</h3>
+    <button class="cart-close-btn" onclick="toggleCart()">&times;</button>
+  </div>
+  
+  <div class="cart-body">
+    <div class="cart-section active" id="sec-viajeros">
+      <div class="cart-section-header" onclick="toggleCartSection('sec-viajeros')">
+        <span><i class="fa-solid fa-users"></i> 1. Información de los viajeros</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
+      <div class="cart-section-content">
+        <div class="cart-field-group">
+          <label>Nombre del responsable de la reserva *</label>
+          <input type="text" id="resp-nombre" placeholder="Ej: Abril Cajchaya">
+        </div>
+        <div class="cart-field-group">
+          <label>Correo electrónico para comprobante *</label>
+          <input type="email" id="resp-email" placeholder="ejemplo@correo.com">
+        </div>
+        <div class="cart-field-group">
+          <label>Código de país y número de celular *</label>
+          <div class="phone-row">
+            <select id="pais-codigo" onchange="toggleOtroCodigoPais()">
+              <option value="+591" selected>🇧🇴 Bolivia (+591)</option>
+              <option value="+51">🇵🇪 Perú (+51)</option>
+              <option value="+54">🇦🇷 Argentina (+54)</option>
+              <option value="+56">🇨🇱 Chile (+56)</option>
+              <option value="+55">🇧🇷 Brasil (+55)</option>
+              <option value="+57">🇨🇴 Colombia (+57)</option>
+              <option value="+593">🇪🇨 Ecuador (+593)</option>
+              <option value="+595">🇵🇾 Paraguay (+595)</option>
+              <option value="+598">🇺🇾 Uruguay (+598)</option>
+              <option value="+58">🇻🇪 Venezuela (+58)</option>
+              <option value="+52">🇲🇽 México (+52)</option>
+              <option value="+1">🇺🇸 EE.UU. / Canadá (+1)</option>
+              <option value="+34">🇪🇸 España (+34)</option>
+              <option value="+33">🇫🇷 Francia (+33)</option>
+              <option value="+49">🇩🇪 Alemania (+49)</option>
+              <option value="+39">🇮🇹 Italia (+39)</option>
+              <option value="+44">🇬🇧 Reino Unido (+44)</option>
+              <option value="+81">🇯🇵 Japón (+81)</option>
+              <option value="+82">🇰🇷 Corea del Sur (+82)</option>
+              <option value="+86">🇨🇳 China (+86)</option>
+              <option value="OTRO">🌍 Otro (Ingresar código)</option>
+            </select>
+            <input type="tel" id="resp-celular" placeholder="Número de celular">
+          </div>
+          <div id="div-otro-codigo" style="display:none; margin-top:8px;">
+            <input type="text" id="pais-codigo-custom" placeholder="Escribe tu código de país (Ej: +41, +61)">
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="cart-field-group"><label>Cantidad de adultos (100%)</label><input type="number" id="cant-adultos" value="1" min="1"></div>
+          <div class="cart-field-group"><label>Cantidad de niños (60%)</label><input type="number" id="cant-ninos" value="0" min="0"></div>
+        </div>
+        <div class="cart-field-group">
+          <label>Edades de los niños (si aplica)</label>
+          <input type="text" id="edades-ninos" placeholder="Ej: 4 y 9 años">
+        </div>
+        <div class="grid-2">
+          <div class="cart-field-group"><label>Cantidad de bebés (Gratis)</label><input type="number" id="cant-bebes" value="0" min="0"></div>
+          <div class="cart-field-group"><label>Adultos mayores (80%)</label><input type="number" id="cant-adultos-mayores" value="0" min="0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-section" id="sec-mascotas">
+      <div class="cart-section-header" onclick="toggleCartSection('sec-mascotas')">
+        <span><i class="fa-solid fa-paw"></i> 2. Mascotas</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
+      <div class="cart-section-content">
+        <div class="cart-field-group">
+          <label>¿Viajarás con mascotas? (Bs. 60 c/u)</label>
+          <select id="mascota-viaja">
+            <option value="No">No</option>
+            <option value="Sí">Sí, viajo con mascota(s)</option>
+          </select>
+        </div>
+        <div class="grid-2">
+          <div class="cart-field-group"><label>Cantidad de mascotas</label><input type="number" id="mascota-cant" value="0" min="0"></div>
+          <div class="cart-field-group">
+            <label>Tipo de mascota</label>
+            <select id="mascota-tipo" onchange="toggleOtraMascota()">
+              <option value="Perro">🐶 Perro</option>
+              <option value="Gato">🐱 Gato</option>
+              <option value="Hámster">🐹 Hámster</option>
+              <option value="Conejo">🐰 Conejo</option>
+              <option value="Ave (Loro/Canario)">🦜 Ave (Loro / Canario)</option>
+              <option value="Tortuga">🐢 Tortuga</option>
+              <option value="Pez">🐠 Pez</option>
+              <option value="Erizo / Cobaya">🦔 Erizo / Cobaya</option>
+              <option value="OTRA">🐾 Otra (Especificar mascota)</option>
+            </select>
+          </div>
+        </div>
+        <div class="cart-field-group" id="div-otra-mascota" style="display:none;">
+          <label>Escribe qué mascota llevas *</label>
+          <input type="text" id="mascota-otra-nombre" placeholder="Ej: Hurón, chinchilla, mini pig...">
+        </div>
+        <div class="grid-2">
+          <div class="cart-field-group">
+            <label>Tamaño</label>
+            <select id="mascota-tamano">
+              <option value="Pequeño">Pequeño</option>
+              <option value="Mediano">Mediano</option>
+              <option value="Grande">Grande</option>
+            </select>
+          </div>
+          <div class="cart-field-group">
+            <label>¿Necesita transportadora?</label>
+            <select id="mascota-transp">
+              <option value="No">No</option>
+              <option value="Sí">Sí, solicitar</option>
+            </select>
+          </div>
+        </div>
+        <div class="cart-field-group">
+          <label>Observaciones especiales</label>
+          <textarea id="mascota-obs" rows="2" placeholder="Raza, vacunas o cuidados..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-section" id="sec-viaje">
+      <div class="cart-section-header" onclick="toggleCartSection('sec-viaje')">
+        <span><i class="fa-solid fa-map-location-dot"></i> 3. Información del viaje y destinos</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
+      <div class="cart-section-content">
+        <div class="grid-2">
+          <div class="cart-field-group"><label>Fecha de ingreso</label><input type="date" id="viaje-ingreso"></div>
+          <div class="cart-field-group"><label>Fecha de regreso</label><input type="date" id="viaje-regreso"></div>
+        </div>
+        <div class="grid-2">
+          <div class="cart-field-group"><label>Hora aproximada de llegada</label><input type="time" id="viaje-hora"></div>
+          <div class="cart-field-group"><label>Ciudad de origen</label><input type="text" id="viaje-origen" placeholder="Ej: La Paz, Lima..."></div>
+        </div>
+        <div class="cart-field-group">
+          <label>Destino turístico en Bolivia (Tarifa base por adulto)</label>
+          <select id="viaje-destino">
+            <optgroup label="Altiplano y Cordillera">
+              <option value="La Paz - Ciudad y Cordillera" data-precio="280">La Paz - City Tour, Teleférico y Valle de la Luna (Bs. 280)</option>
+              <option value="Salar de Uyuni y Lagunas" data-precio="650">Salar de Uyuni, Isla Incahuasi y Lagunas (Bs. 650)</option>
+              <option value="Copacabana e Isla del Sol" data-precio="320">Copacabana, Lago Titicaca e Isla del Sol (Bs. 320)</option>
+              <option value="Tiwanaku y Ruta Arqueológica" data-precio="240">Complejo Arqueológico de Tiwanaku (Bs. 240)</option>
+              <option value="Chacaltaya y Valle de las Ánimas" data-precio="260">Nevado Chacaltaya y Valle de las Ánimas (Bs. 260)</option>
+              <option value="Parque Nacional Sajama" data-precio="480">Parque Nacional Sajama, Géiseres y Termales (Bs. 480)</option>
+              <option value="Potosí - Cerro Rico y Casa de Moneda" data-precio="310">Potosí Colonial, Casa de Moneda y Minas (Bs. 310)</option>
+            </optgroup>
+            <optgroup label="Valles y Patrimonio">
+              <option value="Sucre - Ciudad Blanca" data-precio="340">Sucre Ciudad Blanca y Parque Cretácico (Bs. 340)</option>
+              <option value="Parque Nacional Torotoro" data-precio="450">Parque Nacional Torotoro - Cavernas y Dinosaurios (Bs. 450)</option>
+              <option value="Cochabamba - Cristo y Tunari" data-precio="290">Cochabamba, Cordillera del Tunari y Gastronomía (Bs. 290)</option>
+              <option value="Tarija - Ruta del Vino y Singani" data-precio="390">Tarija - Ruta del Vino, Bodegas y Valles (Bs. 390)</option>
+            </optgroup>
+            <optgroup label="Oriente y Amazonía">
+              <option value="Santa Cruz - Samaipata y Amboró" data-precio="410">Santa Cruz, Fuerte de Samaipata y Parque Amboró (Bs. 410)</option>
+              <option value="Misiones Jesuíticas de Chiquitos" data-precio="520">Ruta de las Misiones Jesuíticas de Chiquitos (Bs. 520)</option>
+              <option value="Rurrenabaque y Parque Madidi" data-precio="720">Rurrenabaque, Selva del Madidi y Pampas (Bs. 720)</option>
+              <option value="Trinidad y Ruta del Bufeo" data-precio="580">Trinidad (Beni) - Navegación y Bufeo (Bs. 580)</option>
+              <option value="Cobija y Selva Amazónica de Pando" data-precio="640">Cobija (Pando) - Reserva Manuripi (Bs. 640)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="grid-2">
+          <div class="cart-field-group"><label>Cantidad de habitaciones</label><input type="number" id="viaje-hab-cant" value="1" min="1"></div>
+          <div class="cart-field-group">
+            <label>Tipo de habitación</label>
+            <select id="viaje-hab-tipo">
+              <option value="Individual">Individual</option>
+              <option value="Doble">Doble</option>
+              <option value="Matrimonial" selected>Matrimonial</option>
+              <option value="Familiar">Familiar</option>
+            </select>
+          </div>
+        </div>
+        <div class="cart-field-group">
+          <label>Necesidades especiales</label>
+          <input type="text" id="viaje-necesidades" placeholder="Ej: Movilidad reducida, dieta sin gluten...">
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-section" id="sec-servicios">
+      <div class="cart-section-header" onclick="toggleCartSection('sec-servicios')">
+        <span><i class="fa-solid fa-concierge-bell"></i> 4. Servicios adicionales</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
+      <div class="cart-section-content">
+        <div class="service-note">
+          <i class="fa-solid fa-circle-info"></i> <strong>Nota:</strong> Cada servicio se multiplica por el total de viajeros.
+        </div>
+        <div class="cart-checkbox-grid">
+          <label><input type="checkbox" class="srv-check" data-costo="40" value="Desayuno Buffet"> Desayuno (Bs. 40/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="65" value="Almuerzo Típico"> Almuerzo (Bs. 65/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="60" value="Cena Andina"> Cena (Bs. 60/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="80" value="Traslado Aeropuerto/Terminal"> Traslado Aerop. (Bs. 80/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="150" value="Transporte Privado 4x4"> Transp. Privado (Bs. 150/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="120" value="Guía Turístico Bilingüe"> Guía Bilingüe (Bs. 120/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="70" value="Actividades para Niños"> Act. Niños (Bs. 70/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="90" value="Actividades Familiares"> Act. Familiares (Bs. 90/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="110" value="Fotografía Profesional"> Fotografía (Bs. 110/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="50" value="Kit de Oxígeno y Altura"> Kit Oxígeno (Bs. 50/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="85" value="Seguro Médico de Viajero"> Seguro Médico (Bs. 85/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="95" value="Alquiler Equipo Montaña"> Equipo Montaña (Bs. 95/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="75" value="Degustación Gastronómica"> Gastronomía (Bs. 75/pers.)</label>
+          <label><input type="checkbox" class="srv-check" data-costo="45" value="Chip SIM / Wi-Fi Portátil"> Wi-Fi Portátil (Bs. 45/pers.)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-section" id="sec-pago">
+      <div class="cart-section-header" onclick="toggleCartSection('sec-pago')">
+        <span><i class="fa-solid fa-credit-card"></i> 5. Métodos de pago y anticipo (50%)</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
+      <div class="cart-section-content">
+        <div class="cart-field-group">
+          <label>Modalidad de pago</label>
+          <select id="pago-modalidad">
+            <option value="Pago total (100%)">Pagar el total completo (100%)</option>
+            <option value="Anticipo del 50%">Pagar anticipo del 50% (Mitad del total)</option>
+          </select>
+        </div>
+        <div class="cart-field-group">
+          <label>Selecciona el método de pago</label>
+          <select id="pago-metodo" onchange="mostrarDetallesPago()">
+            <option value="Efectivo">💵 Efectivo</option>
+            <option value="QR">📱 Pago con QR</option>
+            <option value="Transferencia bancaria">🏦 Transferencia bancaria</option>
+            <option value="Tarjeta">💳 Tarjeta de Crédito / Débito</option>
+            <option value="Otro / Pago a coordinar">🤝 Otro método / Pago a coordinar</option>
+          </select>
+        </div>
+
+        <div id="panel-Efectivo" class="payment-subpanel visible">
+          <div class="cart-field-group">
+            <label>Monto en efectivo con el que pagará (Bs.)</label>
+            <input type="number" id="efectivo-entregado" placeholder="Ej: 1000" min="0" oninput="calcularCambioEfectivo()">
+          </div>
+          <div id="efectivo-cambio-msg" class="cambio-badge">Ingrese el monto para calcular su cambio.</div>
+        </div>
+
+        <div id="panel-QR" class="payment-subpanel">
+          <div class="cart-field-group">
+            <label>Código de referencia o glosa QR</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="qr-codigo" value="AA-QR-2026-884" placeholder="Código QR">
+              <button type="button" onclick="generarNuevoQR()" style="padding:0 12px; background:var(--primary-color); color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:12px; font-weight:700;">Generar QR</button>
+            </div>
+          </div>
+          <div class="qr-box">
+            <svg viewBox="0 0 100 100" fill="#0e472c">
+              <rect x="10" y="10" width="25" height="25" fill="none" stroke="#0e472c" stroke-width="5"/>
+              <rect x="17" y="17" width="11" height="11"/>
+              <rect x="65" y="10" width="25" height="25" fill="none" stroke="#0e472c" stroke-width="5"/>
+              <rect x="72" y="17" width="11" height="11"/>
+              <rect x="10" y="65" width="25" height="25" fill="none" stroke="#0e472c" stroke-width="5"/>
+              <rect x="17" y="72" width="11" height="11"/>
+              <rect x="45" y="15" width="10" height="10"/><rect x="45" y="35" width="10" height="25"/>
+              <rect x="15" y="45" width="20" height="10"/><rect x="65" y="45" width="25" height="10"/>
+              <rect x="45" y="70" width="15" height="15"/><rect x="70" y="65" width="15" height="20"/>
+            </svg>
+            <p style="font-size:12px; font-weight:700; color:var(--primary-color);" id="qr-monto-label">Monto a escanear: Bs. 280</p>
+          </div>
+        </div>
+
+        <div id="panel-Transferencia bancaria" class="payment-subpanel">
+          <div class="cart-field-group">
+            <label>Seleccione el Banco</label>
+            <select id="banco-lista" onchange="toggleOtroBanco()">
+              <option value="BCP - Banco de Crédito de Bolivia">BCP - Banco de Crédito de Bolivia</option>
+              <option value="BNB - Banco Nacional de Bolivia">BNB - Banco Nacional de Bolivia</option>
+              <option value="Banco Mercantil Santa Cruz">Banco Mercantil Santa Cruz</option>
+              <option value="Banco Unión">Banco Unión S.A.</option>
+              <option value="OTRO_BANCO">Otro banco (Ingresar manualmente)</option>
+            </select>
+          </div>
+          <div class="cart-field-group" id="div-otro-banco" style="display:none;">
+            <label>Nombre del banco</label>
+            <input type="text" id="banco-otro-nombre" placeholder="Escriba el nombre de su banco">
+          </div>
+          <div class="grid-2">
+            <div class="cart-field-group"><label>Nro. de Cuenta / Comprobante</label><input type="text" id="banco-comprobante" placeholder="Ej: 201-5048921"></div>
+            <div class="cart-field-group"><label>Monto transferido (Bs.)</label><input type="number" id="banco-monto" placeholder="0.00"></div>
+          </div>
+        </div>
+
+        <div id="panel-Tarjeta" class="payment-subpanel">
+          <div class="cart-field-group">
+            <label>Tipo de Tarjeta</label>
+            <select id="tarjeta-franquicia">
+              <option value="Visa">Visa</option>
+              <option value="Mastercard">Mastercard</option>
+              <option value="American Express">American Express</option>
+            </select>
+          </div>
+          <div class="cart-field-group"><label>Número de tarjeta</label><input type="text" id="tarjeta-numero" maxlength="19" placeholder="XXXX XXXX XXXX XXXX"></div>
+          <div class="cart-field-group"><label>Nombre del titular</label><input type="text" id="tarjeta-titular" placeholder="Titular"></div>
+          <div class="grid-3">
+            <div class="cart-field-group"><label>Vencimiento</label><input type="text" id="tarjeta-exp" placeholder="MM/AA" maxlength="5"></div>
+            <div class="cart-field-group"><label>CVV</label><input type="password" id="tarjeta-cvv" placeholder="123" maxlength="4"></div>
+            <div class="cart-field-group"><label>Monto (Bs.)</label><input type="number" id="tarjeta-monto" placeholder="0.00"></div>
+          </div>
+        </div>
+
+        <div id="panel-Otro / Pago a coordinar" class="payment-subpanel">
+          <div class="cart-field-group"><label>Detalle del método</label><input type="text" id="otro-pago-detalle" placeholder="Ej: Western Union, PayPal..."></div>
+          <div class="cart-field-group"><label>Monto acordado (Bs.)</label><input type="number" id="otro-pago-monto" placeholder="0.00"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-section active" id="sec-resumen">
+      <div class="cart-section-header" onclick="toggleCartSection('sec-resumen')">
+        <span><i class="fa-solid fa-receipt"></i> 6. Resumen y desglose detallado de pago</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
+      <div class="cart-section-content">
+        <div class="cart-summary-box">
+          <div class="cart-summary-row"><span>Destino seleccionado:</span> <span id="sum-destino">La Paz - Ciudad y Cordillera</span></div>
+          <div class="cart-summary-row"><span>Viajeros totales:</span> <span id="sum-viajeros">1 (1 ad.)</span></div>
+          <div class="cart-summary-row"><span>Mascotas:</span> <span id="sum-mascotas">No</span></div>
+          <div class="cart-summary-row"><span>Fechas:</span> <span id="sum-fechas">Por definir</span></div>
+          <div class="cart-summary-row"><span>Habitaciones:</span> <span id="sum-habitaciones">1 (Matrimonial)</span></div>
+          <div class="cart-summary-row"><span>Método de pago:</span> <span id="sum-metodo">Efectivo</span></div>
+
+          <div class="desglose-titulo"><i class="fa-solid fa-list-check"></i> Detalle de conceptos a pagar:</div>
+          <div class="desglose-lista" id="desglose-items-container"></div>
+
+          <div class="cart-summary-row subtotal-row"><span>Subtotal acumulado (100%):</span><span id="sum-subtotal">Bs. 280</span></div>
+          <div class="cart-summary-row total"><span id="sum-label-final">Total a pagar (100%):</span><span id="sum-total">Bs. 280</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <button type="button" class="btn-pay-primary" onclick="procesarCompra()">
+      <i class="fa-solid fa-lock"></i> Pagar y Confirmar Compra
+    </button>
+  </div>
+</div>
+
+<!-- MODAL DE COMPRA EXITOSA -->
+<div class="success-modal" id="successModal">
+  <div class="success-card">
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h2 style="font-family:var(--font-heading); color:var(--primary-color); margin-bottom:8px;">¡Su compra fue realizada con éxito!</h2>
+    <p style="font-size:14px; color:#555; margin-bottom:14px;">Hemos generado su código de reserva <strong id="codigo-reserva-generado">#AA-2026</strong>. Puede enviar su comprobante a nuestro WhatsApp y correo:</p>
+    <div id="comprobante-detalle-box" style="text-align:left; background:#f4f7f3; padding:12px; border-radius:10px; font-size:12px; max-height:220px; overflow-y:auto; border:1px solid #d5e0d2;"></div>
+    <div class="success-actions">
+      <button type="button" class="btn-mail-send" onclick="enviarPorCorreo()"><i class="fa-solid fa-envelope"></i> Enviar a Correo</button>
+      <button type="button" class="btn-wa-send" onclick="enviarPorWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Enviar a WhatsApp</button>
+    </div>
+    <button type="button" onclick="cerrarSuccessModal()" style="margin-top:14px; background:transparent; border:none; color:#666; font-size:13px; text-decoration:underline; cursor:pointer;">Cerrar ventana</button>
+  </div>
+</div>
+
+<!-- SCRIPTS DE CONTROL -->
+<script>
+  // Slider Hero
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('.hero-slides .slide');
+  const dots = document.querySelectorAll('.slider-dots .dot');
+
+  function cambiarSlide(i) {
+    slideIndex = (i + slides.length) % slides.length;
+    slides.forEach((s, idx) => {
+      const isActive = (idx === slideIndex);
+      s.classList.toggle('active', isActive);
+      if(s.tagName === 'VIDEO') {
+        if(isActive) s.play().catch(() => {}); else s.pause();
+      }
+    });
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === slideIndex));
+  }
+  window.setInterval(() => cambiarSlide(slideIndex + 1), 6000);
+
+  // Slider Nosotros
+  const aboutSlides = document.querySelectorAll('.about-media-slides .about-slide');
+  const aboutDots = document.querySelectorAll('.about-dots .about-dot');
+  let aboutIndex = 0;
+
+  function cambiarAboutSlide(i) {
+    aboutIndex = (i + aboutSlides.length) % aboutSlides.length;
+    aboutSlides.forEach((s, idx) => {
+      const isActive = (idx === aboutIndex);
+      s.classList.toggle('active', isActive);
+      if(s.tagName === 'VIDEO') {
+        if(isActive) s.play().catch(() => {}); else s.pause();
+      }
+    });
+    aboutDots.forEach((d, idx) => d.classList.toggle('active', idx === aboutIndex));
+  }
+  window.setInterval(() => cambiarAboutSlide(aboutIndex + 1), 5000);
+
+  // Galería Modal y Filtros
+  function abrirModal(imgUrl, titulo, texto) {
+    document.getElementById('modalImg').src = imgUrl;
+    document.getElementById('modalTitulo').innerText = titulo;
+    document.getElementById('modalTexto').innerText = texto;
+    document.getElementById('modalView').style.display = 'flex';
+  }
+  function cerrarModal() { document.getElementById('modalView').style.display = 'none'; }
+  function filtrar(cat, boton) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    boton.classList.add('active');
+    document.querySelectorAll('.galeria-card').forEach(card => {
+      if(cat === 'todos' || card.dataset.category === cat) card.style.display = 'block';
+      else card.style.display = 'none';
+    });
+  }
+
+  // Carrusel Testimonios interactivo (3 diapositivas, 2 testimonios c/u)
+  const track = document.getElementById('testimoniosTrack');
+  const puntos = document.querySelectorAll('#puntosContenedor span');
+  let testimonioActual = 0;
+
+  if (track && puntos.length) {
+    puntos.forEach((punto, index) => {
+      punto.addEventListener('click', () => {
+        testimonioActual = index;
+        actualizarCarruselTestimonios();
+      });
+    });
+  }
+
+  function actualizarCarruselTestimonios() {
+    track.style.transform = `translateX(-${testimonioActual * 33.333}%)`;
+    puntos.forEach((p, idx) => p.classList.toggle('activo', idx === testimonioActual));
+  }
+
+  // Auto slide para testimonios cada 5 segundos
+  window.setInterval(() => {
+    testimonioActual = (testimonioActual + 1) % 3;
+    actualizarCarruselTestimonios();
+  }, 5000);
+
+  // Carrito Drawer & Acordeón
+  function toggleCart() {
+    document.getElementById('cartDrawer').classList.toggle('open');
+    document.getElementById('cartOverlay').classList.toggle('open');
+  }
+  function toggleCartSection(sectionId) {
+    document.getElementById(sectionId).classList.toggle('active');
+  }
+  function seleccionarDestinoCarrito(destinoValor) {
+    document.getElementById('viaje-destino').value = destinoValor;
+    actualizarResumenCarrito();
+    toggleCart();
+    document.getElementById('sec-viaje').classList.add('active');
+  }
+
+  function toggleOtroCodigoPais() {
+    const val = document.getElementById('pais-codigo').value;
+    document.getElementById('div-otro-codigo').style.display = (val === 'OTRO') ? 'block' : 'none';
+  }
+  function toggleOtraMascota() {
+    const val = document.getElementById('mascota-tipo').value;
+    document.getElementById('div-otra-mascota').style.display = (val === 'OTRA') ? 'block' : 'none';
+  }
+  function toggleOtroBanco() {
+    const val = document.getElementById('banco-lista').value;
+    document.getElementById('div-otro-banco').style.display = (val === 'OTRO_BANCO') ? 'block' : 'none';
+  }
+  function mostrarDetallesPago() {
+    const metodo = document.getElementById('pago-metodo').value;
+    document.querySelectorAll('.payment-subpanel').forEach(p => p.classList.remove('visible'));
+    const activo = document.getElementById('panel-' + metodo);
+    if(activo) activo.classList.add('visible');
+    actualizarResumenCarrito();
+  }
+  function generarNuevoQR() {
+    const randomNum = Math.floor(100 + Math.random() * 900);
+    document.getElementById('qr-codigo').value = `AA-QR-2026-${randomNum}`;
+    alert('Nuevo código QR generado: AA-QR-2026-' + randomNum);
+  }
+
+  let montoFinalAPagar = 280;
+  let lineasDesgloseTexto = [];
+
+  function calcularCambioEfectivo() {
+    const entregado = parseFloat(document.getElementById('efectivo-entregado').value) || 0;
+    const badge = document.getElementById('efectivo-cambio-msg');
+    if (entregado === 0) {
+      badge.className = 'cambio-badge';
+      badge.innerText = 'Ingrese el monto para calcular su cambio.';
+      return;
+    }
+    const diferencia = entregado - montoFinalAPagar;
+    if (diferencia >= 0) {
+      badge.className = 'cambio-badge';
+      badge.innerText = `Cambio a devolver: Bs. ${diferencia.toFixed(2)}`;
+    } else {
+      badge.className = 'cambio-badge insuficiente';
+      badge.innerText = `Faltan Bs. ${Math.abs(diferencia).toFixed(2)} para cubrir el monto.`;
+    }
+  }
+
+  function actualizarResumenCarrito() {
+    const adultos = parseInt(document.getElementById('cant-adultos').value) || 0;
+    const ninos = parseInt(document.getElementById('cant-ninos').value) || 0;
+    const bebes = parseInt(document.getElementById('cant-bebes').value) || 0;
+    const mayores = parseInt(document.getElementById('cant-adultos-mayores').value) || 0;
+    const totalViajeros = adultos + ninos + bebes + mayores;
+    const viajerosConServicio = Math.max(1, adultos + ninos + mayores);
+
+    document.getElementById('cart-count').innerText = totalViajeros > 0 ? totalViajeros : 1;
+
+    const selectDestino = document.getElementById('viaje-destino');
+    const destinoNombre = selectDestino.value;
+    const precioDestino = parseFloat(selectDestino.options[selectDestino.selectedIndex].dataset.precio) || 280;
+
+    const habCant = parseInt(document.getElementById('viaje-hab-cant').value) || 1;
+    const habTipo = document.getElementById('viaje-hab-tipo').value;
+    const ingreso = document.getElementById('viaje-ingreso').value;
+    const regreso = document.getElementById('viaje-regreso').value;
+
+    const mascotaViaja = document.getElementById('mascota-viaja').value;
+    const mascotaCant = parseInt(document.getElementById('mascota-cant').value) || 0;
+    const mascotaTipoSel = document.getElementById('mascota-tipo').value;
+    const mascotaNombreFinal = (mascotaTipoSel === 'OTRA') ? (document.getElementById('mascota-otra-nombre').value.trim() || 'Otra mascota') : mascotaTipoSel;
+
+    const contenedorDesglose = document.getElementById('desglose-items-container');
+    contenedorDesglose.innerHTML = '';
+    lineasDesgloseTexto = [];
+    let subtotal = 0;
+
+    function agregarLineaDesglose(etiqueta, monto) {
+      subtotal += monto;
+      const div = document.createElement('div');
+      div.className = 'desglose-item';
+      div.innerHTML = `<span>${etiqueta}</span><span>Bs. ${monto}</span>`;
+      contenedorDesglose.appendChild(div);
+      lineasDesgloseTexto.push(`• ${etiqueta}: Bs. ${monto}`);
+    }
+
+    if (adultos > 0) agregarLineaDesglose(`Paquete Adultos (${adultos} × Bs. ${precioDestino})`, adultos * precioDestino);
+    if (ninos > 0) agregarLineaDesglose(`Paquete Niños 60% (${ninos} × Bs. ${Math.round(precioDestino * 0.6)})`, ninos * Math.round(precioDestino * 0.6));
+    if (mayores > 0) agregarLineaDesglose(`Paquete Adultos Mayores 80% (${mayores} × Bs. ${Math.round(precioDestino * 0.8)})`, mayores * Math.round(precioDestino * 0.8));
+    if (bebes > 0) agregarLineaDesglose(`Bebés (${bebes} × Sin costo)`, 0);
+
+    if (habCant > 1) agregarLineaDesglose(`Habitaciones adicionales (${habCant - 1} × Bs. 150)`, (habCant - 1) * 150);
+
+    if (mascotaViaja === 'Sí' && mascotaCant > 0) {
+      agregarLineaDesglose(`Logística Mascota (${mascotaCant} × Bs. 60)`, mascotaCant * 60);
+    }
+
+    document.querySelectorAll('.srv-check:checked').forEach(chk => {
+      const costoUnitario = parseFloat(chk.dataset.costo) || 0;
+      agregarLineaDesglose(`${chk.value} (${viajerosConServicio} pers.)`, costoUnitario * viajerosConServicio);
+    });
+
+    const modalidad = document.getElementById('pago-modalidad').value;
+    const esAnticipo = modalidad.includes('50%');
+    montoFinalAPagar = esAnticipo ? Math.round(subtotal * 0.5) : subtotal;
+
+    document.getElementById('sum-destino').innerText = destinoNombre;
+    document.getElementById('sum-viajeros').innerText = `${totalViajeros} (${adultos} ad., ${ninos} niñ., ${bebes} beb., ${mayores} may.)`;
+    document.getElementById('sum-mascotas').innerText = (mascotaViaja === 'Sí' && mascotaCant > 0) ? `Sí (${mascotaCant} - ${mascotaNombreFinal})` : 'No';
+    document.getElementById('sum-fechas').innerText = (ingreso && regreso) ? `${ingreso} al ${regreso}` : (ingreso || 'Por definir');
+    document.getElementById('sum-habitaciones').innerText = `${habCant} (${habTipo})`;
+    document.getElementById('sum-metodo').innerText = document.getElementById('pago-metodo').value;
+    document.getElementById('sum-subtotal').innerText = `Bs. ${subtotal}`;
+    document.getElementById('sum-label-final').innerText = esAnticipo ? 'Anticipo a pagar (50%):' : 'Total a pagar (100%):';
+    document.getElementById('sum-total').innerText = `Bs. ${montoFinalAPagar}`;
+
+    document.getElementById('qr-monto-label').innerText = `Monto a escanear: Bs. ${montoFinalAPagar}`;
+    calcularCambioEfectivo();
+  }
+
+  document.addEventListener('input', e => { if(e.target.closest('#cartDrawer')) actualizarResumenCarrito(); });
+  document.addEventListener('change', e => { if(e.target.closest('#cartDrawer')) actualizarResumenCarrito(); });
+
+  let resumenTextoGlobal = "";
+
+  function procesarCompra() {
+    const nombre = document.getElementById('resp-nombre').value.trim();
+    const email = document.getElementById('resp-email').value.trim();
+    const cel = document.getElementById('resp-celular').value.trim();
+
+    if(!nombre || !cel) {
+      alert('Por favor complete el Nombre del responsable y el Número de celular.');
+      document.getElementById('sec-viajeros').classList.add('active');
+      return;
+    }
+
+    const codPaisSel = document.getElementById('pais-codigo').value;
+    const codPais = (codPaisSel === 'OTRO') ? (document.getElementById('pais-codigo-custom').value.trim() || '') : codPaisSel;
+    const telefonoCompleto = `${codPais} ${cel}`;
+    const codigoReserva = `AA-${Math.floor(10000 + Math.random() * 90000)}`;
+
+    document.getElementById('codigo-reserva-generado').innerText = `#${codigoReserva}`;
+
+    resumenTextoGlobal = 
+`COMPROBANTE DE RESERVA - ALTURA ANDINA 🌄
+Código: #${codigoReserva}
+----------------------------------------
+👤 Responsable: ${nombre}
+📧 Correo: ${email || 'No especificado'}
+📱 Teléfono: ${telefonoCompleto}
+👥 Viajeros: ${document.getElementById('sum-viajeros').innerText}
+🐾 Mascotas: ${document.getElementById('sum-mascotas').innerText}
+📍 Destino: ${document.getElementById('sum-destino').innerText}
+📅 Fechas: ${document.getElementById('sum-fechas').innerText}
+🏨 Habitaciones: ${document.getElementById('sum-habitaciones').innerText}
+----------------------------------------
+📋 DESGLOSE DETALLADO DEL PAGO:
+${lineasDesgloseTexto.join('\n')}
+----------------------------------------
+💵 Subtotal (100%): ${document.getElementById('sum-subtotal').innerText}
+💳 Método de pago: ${document.getElementById('sum-metodo').innerText}
+📌 Modalidad: ${document.getElementById('pago-modalidad').value}
+✅ MONTO CONFIRMADO: ${document.getElementById('sum-total').innerText}`;
+
+    document.getElementById('comprobante-detalle-box').innerHTML = resumenTextoGlobal.replace(/\n/g, '<br>');
+    toggleCart();
+    document.getElementById('successModal').classList.add('open');
+  }
+
+  function enviarPorWhatsApp() {
+    window.open(`https://wa.me/59157070232?text=${encodeURIComponent(resumenTextoGlobal)}`, '_blank');
+  }
+
+  function enviarPorCorreo() {
+    const emailCliente = document.getElementById('resp-email').value.trim() || "reservas@alturaandina.com";
+    window.location.href = `mailto:${emailCliente}?cc=almaandina.ht@gmail.com&subject=${encodeURIComponent("Confirmación y Desglose de Reserva - ALTURA ANDINA")}&body=${encodeURIComponent(resumenTextoGlobal)}`;
+  }
+
+  function cerrarSuccessModal() {
+    document.getElementById('successModal').classList.remove('open');
+  }
+
+  window.addEventListener('DOMContentLoaded', actualizarResumenCarrito);
+</script>
+
+</body>
+</html>
